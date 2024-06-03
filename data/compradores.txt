@@ -1,0 +1,10 @@
+1|Juan|juan@example.com|123456789|contraseña123
+2|Maria|maria@example.com|987654321|contraseña456
+3|Pedro|pedro@example.com|123123123|contraseña789
+4|Ana|ana@example.com|321321321|contraseña012
+5|Luis|luis@example.com|456456456|contraseña345
+6|Sofia|sofia@example.com|654654654|contraseña678
+7|Carlos|carlos@example.com|789789789|contraseña901
+8|Laura|laura@example.com|987987987|contraseña234
+9|Diego|diego@example.com|147147147|contraseña567
+10|Marta|marta@example.com|258258258|contraseña890

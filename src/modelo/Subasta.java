@@ -10,8 +10,12 @@ public class Subasta {
     private Date fechaFin;
     private List<Oferta> ofertas;
     private Comprador ganador;
+    private String nombre;
+    private int compradorId;
+    private int piezaId;
 
-    public Subasta(int id, Pieza pieza, Date fechaInicio, Date fechaFin, List<Oferta> ofertas, Comprador ganador) {
+
+    public Subasta(int id, Pieza pieza, Date fechaInicio, Date fechaFin, List<Oferta> ofertas, Comprador ganador, String nombre, int compradorId, int piezaId) {
         this.id = id;
         this.pieza = pieza;
         this.fechaInicio = fechaInicio;
@@ -69,4 +73,28 @@ public class Subasta {
     public void setGanador(Comprador ganador) {
         this.ganador = ganador;
     }
-}
+
+    public void setPiezaId(int piezaId) {
+        this.piezaId = piezaId;
+    }
+
+    public int getPiezaId() {
+        return piezaId;
+    }
+
+    public void setCompradorId(int compradorId) {
+        this.compradorId = compradorId;
+    }
+
+    public int getCompradorId() {
+        return compradorId;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }   
+ }

@@ -52,20 +52,41 @@ public class TxtUtil {
     // Funcionalidades para Empleados
     public static List<Empleado> cargarEmpleados(String filePath) {
         List<Empleado> empleados = new ArrayList<>();
-        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+        BufferedReader br = null;
+        try {
+            br = new BufferedReader(new FileReader(filePath));
             String line;
-            while ((line = reader.readLine()) != null) {
-                String[] fields = line.split("\\|");
-                int id = Integer.parseInt(fields[0]);
-                String nombre = fields[1];
-                String contrasenia = fields[2];
-                empleados.add(new Empleado(id, nombre, contrasenia));
+            while ((line = br.readLine()) != null) {
+                String[] parts = line.split("\\|");
+                if (parts.length == 3) {
+                    int id = Integer.parseInt(parts[0]);
+                    String nombre = parts[1];
+                    String contraseña = parts[2];
+                    Empleado empleado = new Empleado(id, nombre, contraseña);
+                    empleados.add(empleado);
+                } else {
+                    System.err.println("Formato incorrecto en la línea: " + line);
+                }
             }
         } catch (IOException e) {
+            System.err.println("Error al leer el archivo: " + filePath);
             e.printStackTrace();
+        } catch (NumberFormatException e) {
+            System.err.println("Error al convertir ID a número en el archivo: " + filePath);
+            e.printStackTrace();
+        } finally {
+            try {
+                if (br != null) {
+                    br.close();
+                }
+            } catch (IOException e) {
+                System.err.println("Error al cerrar el BufferedReader");
+                e.printStackTrace();
+            }
         }
         return empleados;
     }
+
 
     public static void guardarEmpleados(List<Empleado> empleados, String filePath) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
@@ -128,7 +149,7 @@ public class TxtUtil {
                 String ganadorNombre = fields[4];
                 Pieza pieza = new Pieza(id, piezaNombre, "Descripción", "Autor", 0.0, "Fecha", "Estado", null);
                 Comprador ganador = ganadorNombre.isEmpty() ? null : new Comprador(id, ganadorNombre, "email", "telefono", new ArrayList<>(), "password");
-                Subasta subasta = new Subasta(id, pieza, fechaInicio, fechaFin, new ArrayList<>(), ganador);
+                Subasta subasta = new Subasta(id, pieza, fechaInicio, fechaFin, new ArrayList<>(), ganador, ganadorNombre, id, id);
                 subastas.add(subasta);
             }
         } catch (IOException | ParseException e) {

@@ -13,21 +13,36 @@ public class SubastaManager {
         this.subastas = subastas;
     }
 
-    public void agregarSubasta(Subasta subasta) {
+    public List<Subasta> getSubastas() {
+        return subastas;
+    }
+
+    public void addSubasta(Subasta subasta) {
         subastas.add(subasta);
-        // Actualizar archivo de texto
-        TxtUtil.guardarSubastas(subastas, "data/subastas.txt");
     }
 
-    public void agregarOferta(Subasta subasta, Oferta oferta) {
-        subasta.getOfertas().add(oferta);
-        // Actualizar archivo de texto
-        TxtUtil.guardarSubastas(subastas, "data/subastas.txt");
+    public void removeSubasta(Subasta subasta) {
+        subastas.remove(subasta);
     }
 
-    public Subasta obtenerSubastaPorId(int id) {
-        return subastas.stream().filter(subasta -> subasta.getId() == id).findFirst().orElse(null);
+    public Subasta findSubastaById(int id) {
+        for (Subasta subasta : subastas) {
+            if (subasta.getId() == id) {
+                return subasta;
+            }
+        }
+        return null;
     }
 
-    // Otros métodos de gestión de subastas
+
+    public void updateSubasta(Subasta subasta) {
+        Subasta existingSubasta = findSubastaById(subasta.getId());
+        if (existingSubasta != null) {
+            existingSubasta.setNombre(subasta.getNombre());
+            existingSubasta.setFechaInicio(subasta.getFechaInicio());
+            existingSubasta.setFechaFin(subasta.getFechaFin());
+            existingSubasta.setCompradorId(subasta.getCompradorId());
+        }
+    }
 }
+

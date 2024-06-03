@@ -6,6 +6,7 @@ import modelo.Galeria;
 import negocio.GaleriaManager;
 import negocio.PagoManager;
 import negocio.SubastaManager;
+import negocio.UsuarioManager;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -15,6 +16,7 @@ public class AdminView extends JFrame {
     private GaleriaManager galeriaManager;
     private PagoManager pagoManager;
     private SubastaManager subastaManager;
+    private UsuarioManager usuarioManager;
 
     private JPanel panel;
     private JButton btnGestionarUsuarios;
@@ -22,10 +24,11 @@ public class AdminView extends JFrame {
     private JButton btnGestionarSubastas;
 
     public AdminView(JFrame parentFrame, GaleriaManager galeriaManager, PagoManager pagoManager,
-            SubastaManager subastaManager) {
+            SubastaManager subastaManager, UsuarioManager usuarioManager) {
         this.galeriaManager = galeriaManager;
         this.pagoManager = pagoManager;
         this.subastaManager = subastaManager;
+        this.usuarioManager = usuarioManager;
 
         setTitle("Vista de Administrador");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -44,21 +47,21 @@ public class AdminView extends JFrame {
         btnGestionarUsuarios.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Implementar lógica para gestionar usuarios
+                new GestionUsuariosView(usuarioManager);
             }
         });
 
         btnGestionarPiezas.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new GestionPiezasView(galeriaManager); // Asegúrate de pasar una instancia de GaleriaManager
+                new GestionPiezasView(galeriaManager);
             }
         });
 
         btnGestionarSubastas.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Implementar lógica para gestionar subastas
+                new GestionSubastasView(subastaManager);
             }
         });
 
@@ -67,13 +70,14 @@ public class AdminView extends JFrame {
     }
 
     public static void main(String[] args) {
-        // Crear instancias ficticias para GaleriaManager, PagoManager y SubastaManager
+        // Crear instancias ficticias para GaleriaManager, PagoManager, SubastaManager y UsuarioManager
         // para probar AdminView
         Galeria galeria = new Galeria(1, "Galería de Arte", "Calle 123", new ArrayList<>(), new ArrayList<>());
         GaleriaManager galeriaManager = new GaleriaManager(galeria);
         PagoManager pagoManager = new PagoManager(new ArrayList<>());
         SubastaManager subastaManager = new SubastaManager(new ArrayList<>());
+        UsuarioManager usuarioManager = new UsuarioManager(new ArrayList<>());
 
-        new AdminView(new JFrame(), galeriaManager, pagoManager, subastaManager);
+        new AdminView(new JFrame(), galeriaManager, pagoManager, subastaManager, usuarioManager);
     }
 }

@@ -1,13 +1,11 @@
 package vista;
 
 import javax.swing.*;
-
-import modelo.Pieza;
-import negocio.GaleriaManager;
-
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import modelo.Pieza;
+import negocio.GaleriaManager;
 
 public class EditarPiezaDialog extends JDialog {
     private JTextField txtNombre;

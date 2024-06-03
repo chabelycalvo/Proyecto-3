@@ -88,7 +88,7 @@ public class InicioView extends JPanel {
 
             if (authenticate(role, password)) {
                 if (role.equals("Administrador")) {
-                    new AdminView(parentFrame, galeriaManager, pagoManager, subastaManager);
+                    new AdminView(parentFrame, galeriaManager, pagoManager, subastaManager, null);
                 } else {
                     Empleado empleado = new Empleado(1, "Empleado", EMPLEADO_PASSWORD); // Ejemplo de empleado
                     new EmpleadoView(parentFrame, galeriaManager, pagoManager, subastaManager, empleado);
