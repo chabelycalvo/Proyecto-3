@@ -1,0 +1,10 @@
+1|Pintura A|Descripción de Pintura A|Autor 1|500.0|2023-01-01|Disponible|1
+2|Escultura B|Descripción de Escultura B|Autor 2|1500.0|2023-02-01|Vendida|2
+3|Fotografía C|Descripción de Fotografía C|Autor 3|300.0|2023-03-01|Subasta|3
+4|Pintura D|Descripción de Pintura D|Autor 4|700.0|2023-04-01|Disponible|4
+5|Escultura E|Descripción de Escultura E|Autor 5|2000.0|2023-05-01|Vendida|5
+6|Fotografía F|Descripción de Fotografía F|Autor 6|400.0|2023-06-01|Subasta|6
+7|Pintura G|Descripción de Pintura G|Autor 7|800.0|2023-07-01|Disponible|7
+8|Escultura H|Descripción de Escultura H|Autor 8|2500.0|2023-08-01|Vendida|8
+9|Fotografía I|Descripción de Fotografía I|Autor 9|500.0|2023-09-01|Subasta|9
+10|Pintura J|Descripción de Pintura J|Autor 10|900.0|2023-10-01|Disponible|10
