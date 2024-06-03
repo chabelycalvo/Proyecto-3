@@ -37,7 +37,6 @@ public class TxtUtil {
         }
         return compradores;
     }
-
     public static void guardarCompradores(List<Comprador> compradores, String filePath) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
             for (Comprador comprador : compradores) {
@@ -48,6 +47,8 @@ public class TxtUtil {
             e.printStackTrace();
         }
     }
+
+
 
     // Funcionalidades para Empleados
     public static List<Empleado> cargarEmpleados(String filePath) {

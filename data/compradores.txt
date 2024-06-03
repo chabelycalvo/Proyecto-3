@@ -8,3 +8,4 @@
 8|Laura|laura@example.com|987987987|contraseña234
 9|Diego|diego@example.com|147147147|contraseña567
 10|Marta|marta@example.com|258258258|contraseña890
+11|chabe|chabe|1234|1234

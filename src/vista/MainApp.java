@@ -8,6 +8,7 @@ import modelo.Subasta;
 import negocio.GaleriaManager;
 import negocio.PagoManager;
 import negocio.SubastaManager;
+import negocio.CompradorManager;
 import util.TxtUtil;
 
 import javax.swing.*;
@@ -28,6 +29,7 @@ public class MainApp {
             GaleriaManager galeriaManager = new GaleriaManager(galeria);
             PagoManager pagoManager = new PagoManager(pagos);
             SubastaManager subastaManager = new SubastaManager(subastas);
+            CompradorManager compradorManager = new CompradorManager(TxtUtil.cargarCompradores("data/compradores.txt"));
 
             // Crear e inicializar la interfaz gráfica
             JFrame frame = new JFrame("Galería de Arte");
@@ -36,7 +38,8 @@ public class MainApp {
             frame.setLocationRelativeTo(null);
 
             // Mostrar la vista de inicio
-            InicioView inicioView = new InicioView(frame, galeriaManager, pagoManager, subastaManager);
+            InicioView inicioView = new InicioView(frame, galeriaManager, pagoManager, subastaManager,
+                    compradorManager);
             frame.add(inicioView);
             frame.setVisible(true);
         });

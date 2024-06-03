@@ -6,6 +6,7 @@ import negocio.GaleriaManager;
 import negocio.PagoManager;
 import negocio.SubastaManager;
 import util.TxtUtil;
+import negocio.CompradorManager;
 
 import javax.swing.*;
 import java.awt.*;
@@ -18,6 +19,7 @@ public class InicioView extends JPanel {
     private GaleriaManager galeriaManager;
     private PagoManager pagoManager;
     private SubastaManager subastaManager;
+    private CompradorManager compradorManager;
     private List<Comprador> compradores;
     private List<Empleado> empleados;
 
@@ -25,21 +27,20 @@ public class InicioView extends JPanel {
     private final String ADMIN_PASSWORD = "1";
     private final String EMPLEADO_PASSWORD = "2";
 
-    public InicioView(JFrame parentFrame, GaleriaManager galeriaManager, PagoManager pagoManager, SubastaManager subastaManager) {
+    public InicioView(JFrame parentFrame, GaleriaManager galeriaManager, PagoManager pagoManager,
+            SubastaManager subastaManager, CompradorManager compradorManager) {
         this.parentFrame = parentFrame;
         this.galeriaManager = galeriaManager;
         this.pagoManager = pagoManager;
         this.subastaManager = subastaManager;
-        this.compradores = TxtUtil.cargarCompradores("data/compradores.txt");
+        this.compradorManager = compradorManager;
+        this.compradores = compradorManager.getCompradores();
         this.empleados = TxtUtil.cargarEmpleados("data/empleados.txt");
         initializeUI();
     }
 
     private void initializeUI() {
         setLayout(new BorderLayout());
-
-        JLabel imageLabel = new JLabel(new ImageIcon("path/to/artgallery/image.jpg")); // Asegúrate de tener una imagen en este path
-        add(imageLabel, BorderLayout.NORTH);
 
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new GridLayout(1, 3));
@@ -71,7 +72,7 @@ public class InicioView extends JPanel {
         compradorButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                showCompradorLoginDialog();
+                showCompradorOptions();
             }
         });
     }
@@ -79,10 +80,11 @@ public class InicioView extends JPanel {
     private void showLoginDialog(String role) {
         JPasswordField passField = new JPasswordField();
         Object[] message = {
-            "Contraseña:", passField
+                "Contraseña:", passField
         };
 
-        int option = JOptionPane.showConfirmDialog(parentFrame, message, "Iniciar Sesión - " + role, JOptionPane.OK_CANCEL_OPTION);
+        int option = JOptionPane.showConfirmDialog(parentFrame, message, "Iniciar Sesión - " + role,
+                JOptionPane.OK_CANCEL_OPTION);
         if (option == JOptionPane.OK_OPTION) {
             String password = new String(passField.getPassword());
 
@@ -100,15 +102,28 @@ public class InicioView extends JPanel {
         }
     }
 
+    private void showCompradorOptions() {
+        Object[] options = { "Iniciar Sesión", "Registrar" };
+        int choice = JOptionPane.showOptionDialog(parentFrame, "Elija una opción", "Comprador",
+                JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
+
+        if (choice == 0) {
+            showCompradorLoginDialog();
+        } else if (choice == 1) {
+            new RegistrarCompradorDialog(parentFrame, compradorManager).setVisible(true);
+        }
+    }
+
     private void showCompradorLoginDialog() {
         JTextField nameField = new JTextField();
         JPasswordField passField = new JPasswordField();
         Object[] message = {
-            "Nombre:", nameField,
-            "Contraseña:", passField
+                "Nombre:", nameField,
+                "Contraseña:", passField
         };
 
-        int option = JOptionPane.showConfirmDialog(parentFrame, message, "Iniciar Sesión - Comprador", JOptionPane.OK_CANCEL_OPTION);
+        int option = JOptionPane.showConfirmDialog(parentFrame, message, "Iniciar Sesión - Comprador",
+                JOptionPane.OK_CANCEL_OPTION);
         if (option == JOptionPane.OK_OPTION) {
             String nombre = nameField.getText();
             String contrasenia = new String(passField.getPassword());
@@ -117,7 +132,8 @@ public class InicioView extends JPanel {
                 new CompradorView(parentFrame, galeriaManager, pagoManager, subastaManager);
                 parentFrame.dispose();
             } else {
-                JOptionPane.showMessageDialog(parentFrame, "Nombre o contraseña incorrectos", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(parentFrame, "Nombre o contraseña incorrectos", "Error",
+                        JOptionPane.ERROR_MESSAGE);
             }
         }
     }
