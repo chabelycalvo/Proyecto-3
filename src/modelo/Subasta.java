@@ -32,11 +32,11 @@ public class Subasta {
     public int getId() {
         return id;
     }
-    
+
     public void setId(int id) {
         this.id = id;
     }
-    
+
     public String getNombre() {
         return nombre;
     }
@@ -83,5 +83,17 @@ public class Subasta {
 
     public void setGanador(Comprador ganador) {
         this.ganador = ganador;
+    }
+
+    public Pieza getPieza() {
+        if (piezas != null && !piezas.isEmpty()) {
+            return piezas.get(0); // Retorna la primera pieza, puedes ajustar esto según la lógica de tu
+                                  // aplicación
+        }
+        return null;
+    }
+
+    public String getGanadorNombre() {
+        return (ganador != null) ? ganador.getNombre() : "N/A";
     }
 }

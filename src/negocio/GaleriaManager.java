@@ -1,5 +1,6 @@
 package negocio;
 
+import modelo.Comprador;
 import modelo.Galeria;
 import modelo.Pieza;
 import util.TxtUtil;
@@ -56,5 +57,12 @@ public class GaleriaManager {
         }
     }
 
-    // Otros métodos relevantes
+    public Galeria getGaleria() {
+        return galeria;
+    }
+
+    public void updateComprador(Comprador comprador) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'updateComprador'");
+    }
 }

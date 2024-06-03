@@ -2,11 +2,11 @@ package vista;
 
 import modelo.Comprador;
 import modelo.Empleado;
+import negocio.CompradorManager;
 import negocio.GaleriaManager;
 import negocio.PagoManager;
 import negocio.SubastaManager;
 import util.TxtUtil;
-import negocio.CompradorManager;
 
 import javax.swing.*;
 import java.awt.*;
@@ -23,7 +23,6 @@ public class InicioView extends JPanel {
     private List<Comprador> compradores;
     private List<Empleado> empleados;
 
-    // Contraseñas de ejemplo para administrador y empleado
     private final String ADMIN_PASSWORD = "1";
     private final String EMPLEADO_PASSWORD = "2";
 
@@ -92,7 +91,7 @@ public class InicioView extends JPanel {
                 if (role.equals("Administrador")) {
                     new AdminView(parentFrame, galeriaManager, pagoManager, subastaManager, null);
                 } else {
-                    Empleado empleado = new Empleado(1, "Empleado", EMPLEADO_PASSWORD); // Ejemplo de empleado
+                    Empleado empleado = new Empleado(1, "Empleado", EMPLEADO_PASSWORD);
                     new EmpleadoView(parentFrame, galeriaManager, pagoManager, subastaManager, empleado);
                 }
                 parentFrame.dispose();
@@ -103,8 +102,8 @@ public class InicioView extends JPanel {
     }
 
     private void showCompradorOptions() {
-        Object[] options = { "Iniciar Sesión", "Registrar" };
-        int choice = JOptionPane.showOptionDialog(parentFrame, "Elija una opción", "Comprador",
+        String[] options = { "Iniciar Sesión", "Registrarse" };
+        int choice = JOptionPane.showOptionDialog(parentFrame, "Elige una opción", "Comprador",
                 JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
 
         if (choice == 0) {
@@ -129,7 +128,8 @@ public class InicioView extends JPanel {
             String contrasenia = new String(passField.getPassword());
 
             if (authenticateComprador(nombre, contrasenia)) {
-                new CompradorView(parentFrame, galeriaManager, pagoManager, subastaManager);
+                Comprador comprador = compradorManager.findCompradorByNombre(nombre);
+                new CompradorView(parentFrame, galeriaManager, pagoManager, subastaManager, comprador);
                 parentFrame.dispose();
             } else {
                 JOptionPane.showMessageDialog(parentFrame, "Nombre o contraseña incorrectos", "Error",
@@ -148,11 +148,7 @@ public class InicioView extends JPanel {
     }
 
     private boolean authenticateComprador(String nombre, String contrasenia) {
-        for (Comprador comprador : compradores) {
-            if (comprador.getNombre().equals(nombre) && comprador.getContrasenia().equals(contrasenia)) {
-                return true;
-            }
-        }
-        return false;
+        Comprador comprador = compradorManager.findCompradorByNombre(nombre);
+        return comprador != null && comprador.getContrasenia().equals(contrasenia);
     }
 }
