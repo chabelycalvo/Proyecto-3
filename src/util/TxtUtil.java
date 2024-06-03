@@ -61,8 +61,8 @@ public class TxtUtil {
                 if (parts.length == 3) {
                     int id = Integer.parseInt(parts[0]);
                     String nombre = parts[1];
-                    String contraseña = parts[2];
-                    Empleado empleado = new Empleado(id, nombre, contraseña);
+                    String contrasenia = parts[2];
+                    Empleado empleado = new Empleado(id, nombre, contrasenia);
                     empleados.add(empleado);
                 } else {
                     System.err.println("Formato incorrecto en la línea: " + line);
@@ -143,13 +143,12 @@ public class TxtUtil {
             while ((line = reader.readLine()) != null) {
                 String[] fields = line.split("\\|");
                 int id = Integer.parseInt(fields[0]);
-                String piezaNombre = fields[1];
+                String nombre = fields[1];
                 Date fechaInicio = new SimpleDateFormat("yyyy-MM-dd").parse(fields[2]);
                 Date fechaFin = new SimpleDateFormat("yyyy-MM-dd").parse(fields[3]);
-                String ganadorNombre = fields[4];
-                Pieza pieza = new Pieza(id, piezaNombre, "Descripción", "Autor", 0.0, "Fecha", "Estado", null);
-                Comprador ganador = ganadorNombre.isEmpty() ? null : new Comprador(id, ganadorNombre, "email", "telefono", new ArrayList<>(), "password");
-                Subasta subasta = new Subasta(id, pieza, fechaInicio, fechaFin, new ArrayList<>(), ganador, ganadorNombre, id, id);
+                int compradorId = Integer.parseInt(fields[4]);
+
+                Subasta subasta = new Subasta(id, nombre, fechaInicio, fechaFin, compradorId);
                 subastas.add(subasta);
             }
         } catch (IOException | ParseException e) {
@@ -161,7 +160,9 @@ public class TxtUtil {
     public static void guardarSubastas(List<Subasta> subastas, String filePath) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
             for (Subasta subasta : subastas) {
-                writer.write(subasta.getId() + "|" + subasta.getPieza().getNombre() + "|" + new SimpleDateFormat("yyyy-MM-dd").format(subasta.getFechaInicio()) + "|" + new SimpleDateFormat("yyyy-MM-dd").format(subasta.getFechaFin()) + "|" + (subasta.getGanador() != null ? subasta.getGanador().getNombre() : ""));
+                String fechaInicioStr = new SimpleDateFormat("yyyy-MM-dd").format(subasta.getFechaInicio());
+                String fechaFinStr = new SimpleDateFormat("yyyy-MM-dd").format(subasta.getFechaFin());
+                writer.write(subasta.getId() + "|" + subasta.getNombre() + "|" + fechaInicioStr + "|" + fechaFinStr + "|" + subasta.getCompradorId());
                 writer.newLine();
             }
         } catch (IOException e) {

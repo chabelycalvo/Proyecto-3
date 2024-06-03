@@ -4,7 +4,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.List;
 import modelo.Subasta;
 import negocio.SubastaManager;
 
@@ -32,7 +31,8 @@ public class GestionSubastasView extends JFrame {
         btnAgregar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Implementar lógica para agregar subasta
+                new AgregarSubastaDialog(GestionSubastasView.this, subastaManager).setVisible(true);
+                tableModel.setSubastas(subastaManager.getSubastas()); // Actualizar tabla
             }
         });
 
@@ -42,7 +42,8 @@ public class GestionSubastasView extends JFrame {
                 int selectedRow = subastasTable.getSelectedRow();
                 if (selectedRow != -1) {
                     Subasta subasta = tableModel.getSubastaAt(selectedRow);
-                    // Implementar lógica para editar subasta
+                    new EditarSubastaDialog(GestionSubastasView.this, subastaManager, subasta).setVisible(true);
+                    tableModel.setSubastas(subastaManager.getSubastas()); // Actualizar tabla
                 } else {
                     JOptionPane.showMessageDialog(null, "Seleccione una subasta para editar.");
                 }

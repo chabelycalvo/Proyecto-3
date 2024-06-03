@@ -5,41 +5,44 @@ import java.util.List;
 
 public class Subasta {
     private int id;
-    private Pieza pieza;
+    private String nombre;
     private Date fechaInicio;
     private Date fechaFin;
-    private List<Oferta> ofertas;
-    private Comprador ganador;
-    private String nombre;
     private int compradorId;
-    private int piezaId;
+    private List<Pieza> piezas;
+    private Comprador ganador;
 
-
-    public Subasta(int id, Pieza pieza, Date fechaInicio, Date fechaFin, List<Oferta> ofertas, Comprador ganador, String nombre, int compradorId, int piezaId) {
+    public Subasta(int id, String nombre, Date fechaInicio, Date fechaFin, int compradorId) {
         this.id = id;
-        this.pieza = pieza;
+        this.nombre = nombre;
         this.fechaInicio = fechaInicio;
         this.fechaFin = fechaFin;
-        this.ofertas = ofertas;
-        this.ganador = ganador;
+        this.compradorId = compradorId;
     }
 
-    // Getters y setters
+    public Subasta(int id, Pieza pieza, Date fechaInicio, Date fechaFin, List<Pieza> piezas, Comprador ganador) {
+        this.id = id;
+        this.nombre = pieza.getNombre();
+        this.fechaInicio = fechaInicio;
+        this.fechaFin = fechaFin;
+        this.piezas = piezas;
+        this.ganador = ganador;
+    }
 
     public int getId() {
         return id;
     }
-
+    
     public void setId(int id) {
         this.id = id;
     }
-
-    public Pieza getPieza() {
-        return pieza;
+    
+    public String getNombre() {
+        return nombre;
     }
 
-    public void setPieza(Pieza pieza) {
-        this.pieza = pieza;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
     public Date getFechaInicio() {
@@ -58,12 +61,20 @@ public class Subasta {
         this.fechaFin = fechaFin;
     }
 
-    public List<Oferta> getOfertas() {
-        return ofertas;
+    public int getCompradorId() {
+        return compradorId;
     }
 
-    public void setOfertas(List<Oferta> ofertas) {
-        this.ofertas = ofertas;
+    public void setCompradorId(int compradorId) {
+        this.compradorId = compradorId;
+    }
+
+    public List<Pieza> getPiezas() {
+        return piezas;
+    }
+
+    public void setPiezas(List<Pieza> piezas) {
+        this.piezas = piezas;
     }
 
     public Comprador getGanador() {
@@ -73,28 +84,4 @@ public class Subasta {
     public void setGanador(Comprador ganador) {
         this.ganador = ganador;
     }
-
-    public void setPiezaId(int piezaId) {
-        this.piezaId = piezaId;
-    }
-
-    public int getPiezaId() {
-        return piezaId;
-    }
-
-    public void setCompradorId(int compradorId) {
-        this.compradorId = compradorId;
-    }
-
-    public int getCompradorId() {
-        return compradorId;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }   
- }
+}

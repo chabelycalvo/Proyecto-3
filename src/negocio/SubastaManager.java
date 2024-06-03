@@ -1,8 +1,6 @@
 package negocio;
 
 import modelo.Subasta;
-import modelo.Oferta;
-import util.TxtUtil;
 
 import java.util.List;
 
@@ -34,7 +32,6 @@ public class SubastaManager {
         return null;
     }
 
-
     public void updateSubasta(Subasta subasta) {
         Subasta existingSubasta = findSubastaById(subasta.getId());
         if (existingSubasta != null) {
@@ -45,4 +42,3 @@ public class SubastaManager {
         }
     }
 }
-

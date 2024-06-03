@@ -3,6 +3,7 @@ package vista;
 import javax.swing.table.AbstractTableModel;
 import java.util.List;
 import modelo.Subasta;
+import java.text.SimpleDateFormat;
 
 public class SubastaTableModel extends AbstractTableModel {
     private List<Subasta> subastas;
@@ -25,11 +26,12 @@ public class SubastaTableModel extends AbstractTableModel {
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
         Subasta subasta = subastas.get(rowIndex);
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         switch (columnIndex) {
             case 0: return subasta.getId();
             case 1: return subasta.getNombre();
-            case 2: return subasta.getFechaInicio();
-            case 3: return subasta.getFechaFin();
+            case 2: return dateFormat.format(subasta.getFechaInicio());
+            case 3: return dateFormat.format(subasta.getFechaFin());
             case 4: return subasta.getCompradorId();
             default: return null;
         }
