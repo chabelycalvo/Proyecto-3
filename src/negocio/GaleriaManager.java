@@ -4,6 +4,7 @@ import modelo.Galeria;
 import modelo.Pieza;
 import util.TxtUtil;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class GaleriaManager {
@@ -13,15 +14,47 @@ public class GaleriaManager {
         this.galeria = galeria;
     }
 
-    public void agregarPieza(Pieza pieza) {
-        galeria.getPiezas().add(pieza);
-        // Actualizar archivo de texto
-        TxtUtil.guardarPiezas(galeria.getPiezas(), "data/piezas.txt");
-    }
-
-    public List<Pieza> listarPiezas() {
+    public List<Pieza> getPiezas() {
         return galeria.getPiezas();
     }
 
-    // Otros métodos de gestión de la galería
+    public void addPieza(Pieza pieza) {
+        galeria.getPiezas().add(pieza);
+    }
+
+    public void removePieza(Pieza pieza) {
+        galeria.getPiezas().remove(pieza);
+    }
+
+    public Pieza findPiezaById(int id) {
+        for (Pieza pieza : galeria.getPiezas()) {
+            if (pieza.getId() == id) {
+                return pieza;
+            }
+        }
+        return null;
+    }
+
+    public List<Pieza> getPiezasDisponibles() {
+        List<Pieza> piezasDisponibles = new ArrayList<>();
+        for (Pieza pieza : galeria.getPiezas()) {
+            if ("Disponible".equalsIgnoreCase(pieza.getEstado())) {
+                piezasDisponibles.add(pieza);
+            }
+        }
+        return piezasDisponibles;
+    }
+
+    public void updatePieza(Pieza piezaActualizada) {
+        Pieza pieza = findPiezaById(piezaActualizada.getId());
+        if (pieza != null) {
+            pieza.setNombre(piezaActualizada.getNombre());
+            pieza.setDescripcion(piezaActualizada.getDescripcion());
+            pieza.setPrecio(piezaActualizada.getPrecio());
+            pieza.setEstado(piezaActualizada.getEstado());
+            // Actualizar otros atributos según sea necesario
+        }
+    }
+
+    // Otros métodos relevantes
 }

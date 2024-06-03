@@ -22,8 +22,8 @@ public class InicioView extends JPanel {
     private List<Empleado> empleados;
 
     // Contraseñas de ejemplo para administrador y empleado
-    private final String ADMIN_PASSWORD = "adminpassword";
-    private final String EMPLEADO_PASSWORD = "empleadopassword";
+    private final String ADMIN_PASSWORD = "1";
+    private final String EMPLEADO_PASSWORD = "2";
 
     public InicioView(JFrame parentFrame, GaleriaManager galeriaManager, PagoManager pagoManager, SubastaManager subastaManager) {
         this.parentFrame = parentFrame;

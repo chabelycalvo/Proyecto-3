@@ -34,7 +34,7 @@ public class MainApp {
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             frame.setSize(800, 600);
             frame.setLocationRelativeTo(null);
-            
+
             // Mostrar la vista de inicio
             InicioView inicioView = new InicioView(frame, galeriaManager, pagoManager, subastaManager);
             frame.add(inicioView);
